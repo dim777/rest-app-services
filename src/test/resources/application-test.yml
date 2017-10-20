@@ -1,0 +1,25 @@
+server:
+    port: 9101
+
+spring:
+  data:
+    cassandra:
+      contact-points: 10.45.250.114,10.45.250.113,10.45.250.112
+      port: 9042
+      keyspace-name: testKeySpace
+      username: ""
+      password: ""
+
+logging:
+  level:
+    org.hibernate: DEBUG
+
+app:
+  config:
+    id: 1
+  configServer: "http://localhost:9101"
+  path:
+    config: "/config"
+    loanqualitycategories: "/risksparams/loanqualitycategories"
+    loanservcoeffs: "/risksparams/loanservcoeffs"
+    loanservcoeffsmatrix: "/risksparams/loanservcoeffsmatrix"
