@@ -26,10 +26,20 @@ public class LoanQualityResultController {
         return loanQualityResultRepository.findAll();
     }
 
-    @RequestMapping(value = "/list", params = { "page", "size" }, method = RequestMethod.GET)
-    public List<LoanQualityResult> getAll(@RequestParam( "page" ) int page, @RequestParam( "size" ) int size) {
-        Slice<LoanQualityResult> results = loanQualityResultRepository.findAllPaged(CassandraPageRequest.of(page, size));
+    @RequestMapping(value = "/filter", params = { "$skip", "$top", "$count"}, method = RequestMethod.GET)
+    public List<LoanQualityResult> withoutFilter(@RequestParam( "$skip" ) Integer skip, @RequestParam( "$top" ) Integer top,
+                                          @RequestParam( "$count" ) Boolean count) {
+
+        Slice<LoanQualityResult> results = loanQualityResultRepository.findAllPaged(CassandraPageRequest.of(skip, top));
         return results.getContent();
+    }
+
+    @RequestMapping(value = "/filter", params = { "$skip", "$top", "$count", "$filter" }, method = RequestMethod.GET)
+    public List<LoanQualityResult> filter(@RequestParam( "$skip" ) Integer skip, @RequestParam( "$top" ) Integer top,
+                                          @RequestParam( "$count" ) Boolean count, @RequestParam( "$filter" ) String filter) {
+        Slice<LoanQualityResult> results = loanQualityResultRepository.findAllByLoanAccountNumber("dfdf", CassandraPageRequest.of(skip, top));
+        //contains(ProductName,%27ff%27)
+        return null;
     }
 
 }

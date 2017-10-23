@@ -24,4 +24,6 @@ public interface LoanQualityResultRepository extends CassandraRepository<LoanQua
 
     @Query("SELECT * from kks_results")
     Slice<LoanQualityResult> findAllPaged(Pageable pageable);
+
+    Slice<LoanQualityResult> findAllByLoanAccountNumber(String loanAccountNumber, Pageable pageable);
 }
